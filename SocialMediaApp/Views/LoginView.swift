@@ -76,8 +76,15 @@ struct LoginView: View {
                             Text(isLoginMode ? "Create Account" : "Login")
                         }
                     }
+                    
+                    Text(loginStatusMessage)
+                        .foregroundColor(.red)
+                    
                 }
                 .padding()
+            }
+            .fullScreenCover(isPresented: $shouldShowImagePicker) {
+                ImagePicker(image: $image)
             }
         }
     }
