@@ -37,6 +37,31 @@ struct LoginView: View {
                         .bold()
                     
                     // Image picker if isLoginMode is false
+                    if !isLoginMode {
+                        Button {
+                            shouldShowImagePicker.toggle()
+                        } label: {
+                            VStack {
+                                if let image = image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 128, height: 128)
+                                        .cornerRadius(64)
+                                } else {
+                                    Image(systemName: "person.fill")
+                                        .font(.system(size: 64))
+                                        .padding()
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .overlay (
+                                RoundedRectangle(cornerRadius: 64)
+                                    .stroke(Color.black, lineWidth: 3)
+                                )
+                            }
+                        
+                    }
                     
                     TextField("Email", text: $email)
                         .keyboardType(.emailAddress)
@@ -85,6 +110,7 @@ struct LoginView: View {
             }
             .fullScreenCover(isPresented: $shouldShowImagePicker) {
                 ImagePicker(image: $image)
+                    .ignoresSafeArea()
             }
         }
     }
